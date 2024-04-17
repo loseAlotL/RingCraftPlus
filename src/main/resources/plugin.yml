@@ -1,0 +1,17 @@
+name: RingCraftPlus
+version: '${project.version}'
+main: org.randomlima.ringcraftplus.RingCraftPlus
+api-version: '1.20'
+commands:
+  palantir:
+    description: A command that gives the player palantir.
+    usage: /<command>
+  gondorhorn:
+    description: A command that gives the player the horn of gondor.
+    usage: /<command>
+  gandalfstaff:
+    description: A command that gives the player gandalfs staff.
+    usage: /<command>
+  sarumanstaff:
+    description: A command that gives the player Saruman's staff.
+    usage: /<command>

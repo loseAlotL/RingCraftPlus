@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RingCraftPlus:jar">
+    <output-path>$USER_HOME$/OneDrive/Desktop/Paper Server/plugins</output-path>
+    <root id="archive" name="RingCraftPlus.jar">
+      <element id="module-output" name="RingCraftPlus" />
+    </root>
+  </artifact>
+</component>

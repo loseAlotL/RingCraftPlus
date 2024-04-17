@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: C:\Users\lluci\OneDrive\Desktop\Paper Server\plugins
+
