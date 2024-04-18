@@ -19,3 +19,7 @@ commands:
     description: A command that gives the player Saruman's staff.
     usage: /<command>
     permission: OP
+  galadrielphial:
+    description: A command that gives the player Galadriel's Phial.
+    usage: /<command>
+    permission: OP

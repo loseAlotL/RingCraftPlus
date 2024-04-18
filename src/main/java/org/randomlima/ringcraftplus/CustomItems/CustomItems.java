@@ -18,6 +18,7 @@ public class CustomItems {
     public static ItemStack gondorHorn;
     public static ItemStack gandalfStaff;
     public static ItemStack sarumanStaff;
+    public static ItemStack galadrielPhial;
 
     public static void init(){
         createAngmarHelmet();
@@ -25,6 +26,7 @@ public class CustomItems {
         createGondorHorn();
         createGandalfStaff();
         createSarumanStaff();
+        createGaladrielPhial();
     }
 
     private static void createAngmarHelmet() {
@@ -59,7 +61,8 @@ public class CustomItems {
         meta.setDisplayName("§5[Palantir]");
         List<String> lore = new ArrayList<>();
         lore.add("§6Ability: Ethereal Gaze §e§lRIGHT CLICK");
-        lore.add("§7Reveals surrounding mobs, giving all entities within 15 blocks §dglowing§7 for 15 seconds.");
+        lore.add("§7Reveals surrounding mobs, giving all entities within 15 blocks");
+        lore.add("§dglowing§7 for 15 seconds.");
         lore.add("§8Cooldown: 60s");
         meta.setLore(lore);
         item.setItemMeta(meta);
@@ -75,7 +78,8 @@ public class CustomItems {
         meta.setDisplayName("§6[The Horn of Gondor]");
         List<String> lore = new ArrayList<>();
         lore.add("§6Ability: Call of Valor §e§lRIGHT CLICK");
-        lore.add("§7When blown, gives all players within 10 blocks §dregeneration 2§7 for 15 seconds.");
+        lore.add("§7When blown, gives all players within 10 blocks §dregeneration 2");
+        lore.add("§7 for 15 seconds.");
         lore.add("§8Cooldown: 50s");
         meta.setLore(lore);
         item.setItemMeta(meta);
@@ -92,7 +96,8 @@ public class CustomItems {
         lore.add("§7Create a cloud of smoke around you.");
         lore.add("§8Cooldown: 60s");
         lore.add("§6Ability: Strategic Wisdom §e§lLEFT CLICK");
-        lore.add("§7Gives §3allies §dinstant health 2, regeneration 1 §7 and §dspeed 1§7 for 10 seconds");
+        lore.add("§7Gives §3allies §dinstant health 2, regeneration 1 §7 and");
+        lore.add("§dspeed 1§7 for 10 seconds.");
         lore.add("§8Cooldown: 75s");
         lore.add("§6Ability: Marker §e§lSHIFT-RIGHT CLICK");
         lore.add("§7Use while facing a player to mark tham as an §3ally§7.");
@@ -107,16 +112,36 @@ public class CustomItems {
         meta.setDisplayName("§7[Saruman's Staff]");
         List<String> lore = new ArrayList<>();
         lore.add("§6Ability: Telekinesis §e§lRIGHT CLICK");
-        lore.add("§7All enemies in front of you will be slowed down to a snails pace for 15s.");
+        lore.add("§7All enemies in front of you will be slowed down to a snails");
+        lore.add("§7pace for 15s.");
         lore.add("§8Cooldown: 60s");
         lore.add("§6Ability: Fiery Curse §e§lLEFT CLICK");
         lore.add("§7Launches a cluster of fireballs to deal massive damage!");
         lore.add("§8Cooldown: 45s");
         lore.add("§6Ability: Illumination §e§lSHIFT-RIGHT CLICK");
-        lore.add("§7Emits a bright light. All players within 7 blocks §dglowing §7and §dblindness §7for 15 seconds.");
+        lore.add("§7Emits a bright light. All players within 7 blocks §dglowing");
+        lore.add("§7and §dblindness §7for 15 seconds.");
         lore.add("§8Cooldown: 60s");
         meta.setLore(lore);
         item.setItemMeta(meta);
         sarumanStaff = item;
+    }
+
+    public static void createGaladrielPhial() {
+        ItemStack item = new ItemStack(Material.EXPERIENCE_BOTTLE,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(2);
+        meta.setDisplayName("§f[Galadriel's Phial]");
+        meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier("GENERIC_MOVEMENT_SPEED", 0.1, AttributeModifier.Operation.ADD_NUMBER));
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        lore.add("§6Ability: Radiant Elixir §e§lRIGHT CLICK");
+        lore.add("§7Blasts the surrounding area with §fGaladriel's Light§7. §fGaladriel's");
+        lore.add("§fLight §7gives all players within 10 blocks §dregeneration 2 §7for 30");
+        lore.add("§7seconds. It also slowly damages all hostile mobs within 10 blocks.");
+        lore.add("§8Cooldown: 60s");
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        galadrielPhial = item;
     }
 }

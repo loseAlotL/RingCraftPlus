@@ -1,11 +1,9 @@
 package org.randomlima.ringcraftplus;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.randomlima.ringcraftplus.Commands.GandalfStaff;
-import org.randomlima.ringcraftplus.Commands.GondorHorn;
-import org.randomlima.ringcraftplus.Commands.Palantir;
-import org.randomlima.ringcraftplus.Commands.SarumanStaff;
+import org.randomlima.ringcraftplus.Commands.*;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
+import org.randomlima.ringcraftplus.Listeners.GaladrielPhial.GaladrielPhialRightClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffLeftClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffRightClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
@@ -25,6 +23,7 @@ public final class RingCraftPlus extends JavaPlugin {
         this.getCommand("gondorhorn").setExecutor(new GondorHorn());
         this.getCommand("gandalfstaff").setExecutor(new GandalfStaff());
         this.getCommand("sarumanstaff").setExecutor(new SarumanStaff());
+        this.getCommand("galadrielphial").setExecutor(new GaladrielPhial());
         getServer().getPluginManager().registerEvents(new GondorHornRightClick(), this);
         getServer().getPluginManager().registerEvents(new PalantirRightClick(this), this);
         getServer().getPluginManager().registerEvents(new GandalfStaffRightClick(this), this);
@@ -33,6 +32,7 @@ public final class RingCraftPlus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SarumanStaffRightClick(this), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffLeftClick(this), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffShift(this), this);
+        getServer().getPluginManager().registerEvents(new GaladrielPhialRightClick(this), this);
 
     }
 
