@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
@@ -52,7 +53,7 @@ public class SarumanStaffRightClick implements Listener {
         long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
 
         int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage("§7This item is on cooldown! Use again in: " + remainingSeconds + " seconds");
+        player.sendMessage(Colorize.format("&7This item is on cooldown! Use again in: " + remainingSeconds + " seconds"));
         player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }
