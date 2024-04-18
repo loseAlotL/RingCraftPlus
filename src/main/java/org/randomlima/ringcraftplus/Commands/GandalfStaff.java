@@ -11,9 +11,7 @@ public class GandalfStaff implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) sender;
-        if(cmd.getName().equalsIgnoreCase("gandalfstaff")){
-            player.getInventory().addItem(CustomItems.gandalfStaff);
-        }
+        player.getInventory().addItem(CustomItems.gandalfStaff);
         return true;
     }
 }

@@ -11,9 +11,7 @@ public class GondorHorn implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) sender;
-        if(cmd.getName().equalsIgnoreCase("gondorhorn")){
-            player.getInventory().addItem(CustomItems.gondorHorn);
-        }
+        player.getInventory().addItem(CustomItems.gondorHorn);
         return true;
     }
 }

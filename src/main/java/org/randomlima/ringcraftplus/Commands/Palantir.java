@@ -11,9 +11,7 @@ public class Palantir implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) sender;
-        if(cmd.getName().equalsIgnoreCase("palantir")){
-            player.getInventory().addItem(CustomItems.Palantir);
-        }
+        player.getInventory().addItem(CustomItems.Palantir);
         return true;
     }
 }

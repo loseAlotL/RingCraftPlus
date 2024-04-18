@@ -11,9 +11,7 @@ public class GaladrielPhial implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) sender;
-        if(cmd.getName().equalsIgnoreCase("galadrielphial")){
-            player.getInventory().addItem(CustomItems.galadrielPhial);
-        }
+        player.getInventory().addItem(CustomItems.galadrielPhial);
         return true;
     }
 }

@@ -11,9 +11,7 @@ public class SarumanStaff implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, @NotNull String[] strings) {
         Player player = (Player) sender;
-        if(cmd.getName().equalsIgnoreCase("sarumanstaff")){
-            player.getInventory().addItem(CustomItems.sarumanStaff);
-        }
+        player.getInventory().addItem(CustomItems.sarumanStaff);
         return true;
     }
 }
