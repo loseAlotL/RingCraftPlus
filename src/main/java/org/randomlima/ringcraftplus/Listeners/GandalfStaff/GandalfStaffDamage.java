@@ -14,31 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GandalfStaffDamage implements Listener {
-    List<Player> gandalfAllies = new ArrayList<>();
+    static List<Player> gandalfAllies = new ArrayList<>();
+
     @EventHandler
     public void onDamageEvent(EntityDamageByEntityEvent event){
-        System.out.println("Listenere works");
-        if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getInventory().getItemInMainHand().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta())){
+        if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getInventory().getItemInMainHand().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta()) && (event.getEntity() instanceof Player)){
             Entity damagerEntity = event.getDamager();
             Entity damagedEntity = event.getEntity();
-            if (damagedEntity instanceof Player){
-                Player damager = (Player) damagerEntity;
-                Player damagedPlayer = (Player) damagedEntity;
-                if (!gandalfAllies.contains(damagedPlayer)){
-                    gandalfAllies.add(damagedPlayer);
-                    event.setCancelled(true);
-                    damager.sendMessage(Colorize.format("&2You have added: "+ damagedPlayer.getName() + " to your list of allies."));
-                    damager.playSound(damager, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1, 1);
-                } else {
-                    gandalfAllies.remove(damagedPlayer);
-                    event.setCancelled(true);
-                    damager.sendMessage(Colorize.format("&cYou have removed: "+ damagedPlayer.getName() + " from your list of allies."));
-                    damager.playSound(damager, Sound.ENTITY_ARMOR_STAND_BREAK,1, 1);
-                }
-            } else {return;}
+            Player damager = (Player) damagerEntity;
+            Player damagedPlayer = (Player) damagedEntity;
+            if (!gandalfAllies.contains(damagedPlayer)){
+                gandalfAllies.add(damagedPlayer);
+                event.setCancelled(true);
+                damager.sendMessage(Colorize.format("&2You have added: "+ damagedPlayer.getName() + " to your list of allies."));
+                damager.playSound(damager, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1, 1);
+            } else {
+                gandalfAllies.remove(damagedPlayer);
+                event.setCancelled(true);
+                damager.sendMessage(Colorize.format("&cYou have removed: "+ damagedPlayer.getName() + " from your list of allies."));
+                damager.playSound(damager, Sound.ENTITY_ARMOR_STAND_BREAK,1, 1);
+            }
         } else {return;}
     }
-    public List<Player> getGandalfList() {
+
+    public static List<Player> getGandalfList() {
         return gandalfAllies;
     }
 }
