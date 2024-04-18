@@ -27,11 +27,13 @@ public class GandalfStaffDamage implements Listener {
                 gandalfAllies.add(damagedPlayer);
                 event.setCancelled(true);
                 damager.sendMessage(Colorize.format("&2You have added: "+ damagedPlayer.getName() + " to your list of allies."));
+                damagedPlayer.sendMessage(Colorize.format("&2You have been added to "+damager.getName()+"'s ally list."));
                 damager.playSound(damager, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1, 1);
             } else {
                 gandalfAllies.remove(damagedPlayer);
                 event.setCancelled(true);
                 damager.sendMessage(Colorize.format("&cYou have removed: "+ damagedPlayer.getName() + " from your list of allies."));
+                damagedPlayer.sendMessage(Colorize.format("&cYou have been removed to "+damager.getName()+"'s ally list."));
                 damager.playSound(damager, Sound.ENTITY_ARMOR_STAND_BREAK,1, 1);
             }
         } else {return;}
