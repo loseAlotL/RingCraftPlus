@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.randomlima.ringcraftplus.Commands.*;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.GaladrielPhial.GaladrielPhialRightClick;
+import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffDamage;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffLeftClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffRightClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
@@ -28,7 +29,7 @@ public final class RingCraftPlus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PalantirRightClick(this), this);
         getServer().getPluginManager().registerEvents(new GandalfStaffRightClick(this), this);
         getServer().getPluginManager().registerEvents(new GandalfStaffLeftClick(this), this);
-        getServer().getPluginManager().registerEvents(new GandalfStaffShift(this), this);
+        getServer().getPluginManager().registerEvents(new GandalfStaffDamage(), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffRightClick(this), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffLeftClick(this), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffShift(this), this);

@@ -18,7 +18,7 @@ public class GandalfStaffDamage implements Listener {
         if (event.getEntity() instanceof Player){
             Entity damagerEntity = event.getDamager();
             Entity damagedEntity = event.getEntity();
-            if (event.getDamager() instanceof Player && ((Player) event.getDamager()).getItemInHand().getItemMeta().equals(CustomItems.gandalfStaff)){
+            if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getItemInHand().getItemMeta().equals(CustomItems.gandalfStaff)){
                 Player damager = (Player) damagerEntity;
                 Player damagedPlayer = (Player) damagedEntity;
                 if (!listOfPlayers.contains(damagedPlayer)){
