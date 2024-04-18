@@ -16,10 +16,10 @@ public class GandalfStaffDamage implements Listener {
     List<Player> listOfPlayers = new ArrayList<>();
     @EventHandler
     public void onDamageEvent(EntityDamageByEntityEvent event){
-        if (event.getEntity() instanceof Player){
+        if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getItemInHand().getItemMeta().equals(CustomItems.gandalfStaff)){
             Entity damagerEntity = event.getDamager();
             Entity damagedEntity = event.getEntity();
-            if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getItemInHand().getItemMeta().equals(CustomItems.gandalfStaff)){
+            if (event.getEntity() instanceof Player){
                 Player damager = (Player) damagerEntity;
                 Player damagedPlayer = (Player) damagedEntity;
                 if (!listOfPlayers.contains(damagedPlayer)){
