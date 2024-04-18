@@ -6,12 +6,20 @@ commands:
   palantir:
     description: A command that gives the player palantir.
     usage: /<command>
+    permission: OP
   gondorhorn:
     description: A command that gives the player the horn of gondor.
     usage: /<command>
+    permission: OP
   gandalfstaff:
     description: A command that gives the player gandalfs staff.
     usage: /<command>
+    permission: OP
   sarumanstaff:
     description: A command that gives the player Saruman's staff.
     usage: /<command>
+    permission: OP
+  galadrielphial:
+    description: A command that gives the player Galadriel's Phial.
+    usage: /<command>
+    permission: OP

@@ -99,7 +99,7 @@ public class CustomItems {
         lore.add("§7Gives §3allies §dinstant health 2, regeneration 1 §7 and");
         lore.add("§dspeed 1§7 for 10 seconds.");
         lore.add("§8Cooldown: 75s");
-        lore.add("§6Ability: Marker §e§lSHIFT-RIGHT CLICK");
+        lore.add("§6Ability: Marker §e§lSHIFT-LEFT CLICK");
         lore.add("§7Use while facing a player to mark tham as an §3ally§7.");
         meta.setLore(lore);
         item.setItemMeta(meta);

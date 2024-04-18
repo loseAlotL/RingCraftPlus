@@ -23,7 +23,7 @@ public class GandalfStaffShift implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta())){
+        if (event.getItem() != null && event.getAction().isLeftClick() && event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
