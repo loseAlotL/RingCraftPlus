@@ -50,7 +50,7 @@ public class GaladrielPhialRightClick implements Listener {
                     Player nearbyPlayer = (Player) entity;
                     nearbyPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
                 }
-                if (entity instanceof LivingEntity){
+                if (entity instanceof LivingEntity && !(entity instanceof Player)){
                     LivingEntity lentity = (LivingEntity) entity;
                     damageTask(lentity, player);
                 }
