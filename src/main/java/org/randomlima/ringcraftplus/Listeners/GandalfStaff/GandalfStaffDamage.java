@@ -1,5 +1,6 @@
 package org.randomlima.ringcraftplus.Listeners.GandalfStaff;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,10 +26,12 @@ public class GandalfStaffDamage implements Listener {
                     listOfPlayers.add(damagedPlayer);
                     event.setCancelled(true);
                     damager.sendMessage("You have added: "+ damagedPlayer.getName() + "to your list of allies.");
+                    damager.playSound(damager, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1, 1);
                 } else {
                     listOfPlayers.remove(damagedPlayer);
                     event.setCancelled(true);
                     damager.sendMessage("You have removed: "+ damagedPlayer.getName() + "from your list of allies.");
+                    damager.playSound(damager, Sound.ENTITY_ARMOR_STAND_BREAK,1, 1);
                 }
             } else {return;}
         } else {return;}
