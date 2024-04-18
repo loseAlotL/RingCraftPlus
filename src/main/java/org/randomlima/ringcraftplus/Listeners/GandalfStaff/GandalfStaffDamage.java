@@ -38,4 +38,7 @@ public class GandalfStaffDamage implements Listener {
             } else {return;}
         } else {return;}
     }
+    public List<Player> getGandalfList() {
+        return gandalfAllies;
+    }
 }
