@@ -24,7 +24,7 @@ public class RadagastStaffLeftClick implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isLeftClick() && event.getItem().getItemMeta().equals(CustomItems.sarumanStaff.getItemMeta())){
+        if (event.getItem() != null && event.getAction().isLeftClick() && event.getItem().getItemMeta().equals(CustomItems.radagastStaff.getItemMeta())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);

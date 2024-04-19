@@ -23,3 +23,7 @@ commands:
     description: A command that gives the player Galadriel's Phial.
     usage: /<command>
     permission: OP
+  radagaststaff:
+    description: A command that gives the player Radagast's Staff.
+    usage: /<command>
+    permission: OP

@@ -1,10 +1,16 @@
 package org.randomlima.ringcraftplus.Listeners.RadagastStaff;
 
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.util.RayTraceResult;
+import org.bukkit.util.Vector;
 import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
@@ -24,15 +30,29 @@ public class RadagastStaffRightClick implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.sarumanStaff.getItemMeta())){
+        if (event.getItem() != null && event.getAction().isRightClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.radagastStaff.getItemMeta())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
                 return;
             }
             event.setCancelled(true);
-            setCooldown(player);
+            Vector direction = player.getLocation().getDirection();
+            RayTraceResult result = player.getWorld().rayTraceEntities(player.getLocation(), direction, 50);
+            if (result != null && result.getHitEntity() != null) {
+                Entity targetEntity = result.getHitEntity();
+                if (targetEntity instanceof LivingEntity){
+                    for (int i = 0; i < 7; i++) {
+                        Wolf wolf = player.getWorld().spawn(player.getLocation(), Wolf.class);
+                        wolf.setTarget((LivingEntity) targetEntity); // Set the wolf's target to the attacked entity
+                        wolf.setAngry(true); // Make the wolf aggressive
+                    }
+                    setCooldown(player);
+                }
 
+            } else {
+                player.sendMessage("You are not looking at any entity.");
+            }
         }
     }
     private boolean isOnCooldown(Player player) {
