@@ -94,7 +94,7 @@ public class CustomItems {
     private static void createGandalfStaff() {
         ItemStack item = new ItemStack(Material.STICK,1);
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(1);
+        meta.setCustomModelData(3);
         meta.setDisplayName(Colorize.format("&7[Gandalf's Staff]"));
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format(Colorize.format("&6Ability: The Smoke Rings of Gandalf &e&lRIGHT CLICK")));
@@ -135,7 +135,7 @@ public class CustomItems {
     private static void createRadagastStaff() {
         ItemStack item = new ItemStack(Material.STICK,1);
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(2);
+        meta.setCustomModelData(1);
         meta.setDisplayName(Colorize.format("&2[Radagast's Staff]"));
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Nature's call &e&lRIGHT CLICK"));
