@@ -1,5 +1,6 @@
 package org.randomlima.ringcraftplus.Listeners.GandalfStaff;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -22,6 +23,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class GandalfStaffRightClick implements Listener {
+    private int taskID;
     private final RingCraftPlus main;
     public GandalfStaffRightClick(RingCraftPlus main) {
         this.main = main;
@@ -41,8 +43,32 @@ public class GandalfStaffRightClick implements Listener {
             }
             event.setCancelled(true);
             setCooldown(player);
-
+            particleCircle(player);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 150, 1));
+            player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN,1,1);
         }
+    }
+    private void particleCircle(Player player) {
+        final int[] ticks = {0};
+        final int durationTicks = 5;
+        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {
+
+            @Override
+            public void run() {
+                if (ticks[0] >= durationTicks) {
+                    Bukkit.getScheduler().cancelTask(taskID); // Stop the task after 3 seconds
+                    return;
+                }
+                for (double i = 0; i <360; i +=90){
+                    Location loc = player.getLocation();
+                    double angle = i * Math.PI / 180;
+                    double x = 2 * Math.cos(angle);
+                    double z = 2 * Math.sin(angle);
+                    loc.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc.getX() + x, loc.getY() + 1, loc.getZ() + z, 0,0,0,0,0.01);
+                }
+                ticks[0]++;
+            }
+        }, 0L, 10L); //0 Tick initial delay, 20 Tick (1 Second) between repeats
     }
     private boolean isOnCooldown(Player player) {
         if (cooldowns.containsKey(player.getUniqueId())) {

@@ -13,6 +13,7 @@ import org.randomlima.ringcraftplus.Colorize;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CustomItems {
     public static ItemStack AngmarHelmet;
@@ -134,7 +135,8 @@ public class CustomItems {
         ItemMeta meta = item.getItemMeta();
         meta.setCustomModelData(2);
         meta.setDisplayName(Colorize.format("&f[Galadriel's Phial]"));
-        meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, new AttributeModifier("GENERIC_MOVEMENT_SPEED", 0.1, AttributeModifier.Operation.ADD_NUMBER));
+        AttributeModifier modifier = new AttributeModifier("GaladrielMovementSpeed", 0.1, AttributeModifier.Operation.ADD_NUMBER);
+        meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, modifier);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Radiant Elixir &e&lRIGHT CLICK"));

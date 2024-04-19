@@ -1,8 +1,10 @@
 package org.randomlima.ringcraftplus.Listeners.GandalfStaff;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class GandalfStaffLeftClick implements Listener {
+
     private final RingCraftPlus main;
     public GandalfStaffLeftClick(RingCraftPlus main) {
         this.main = main;
@@ -32,21 +35,21 @@ public class GandalfStaffLeftClick implements Listener {
     public void onLeftClick(PlayerInteractEvent event){
         //GandalfStaffDamage gandalfStaffDamage = new GandalfStaffDamage();
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isLeftClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta())){
+        if (event.getItem() != null && event.getAction().isLeftClick() && !event.getPlayer().isSneaking() && event.getItem().equals(CustomItems.gandalfStaff)){
             List<Player> gandalfAllies = GandalfStaffDamage.getGandalfList(); // Assuming RingCraftPlus has a method to get allies list
-            if (gandalfAllies == null || gandalfAllies.isEmpty()) {
-                return;
-            }
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
                 return;
             }
-            event.setCancelled(true);
-            setCooldown(player);
-            if(gandalfAllies.isEmpty()){
+            if (gandalfAllies == null || gandalfAllies.isEmpty()) {
+                setCooldown(player);
+                player.playSound(player.getLocation(), Sound.ENTITY_ARMOR_STAND_HIT, 1, 1);
+                player.sendMessage(Colorize.format("&7You have not set any allies!"));
                 return;
             }
+            event.setCancelled(true);
+            setCooldown(player);
             for(Player gandalfAlly : gandalfAllies){
                 gandalfAlly.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
                 gandalfAlly.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
@@ -62,6 +65,7 @@ public class GandalfStaffLeftClick implements Listener {
             }
         }
     }
+
     private boolean isOnCooldown(Player player) {
         if (cooldowns.containsKey(player.getUniqueId())) {
             long currentTime = System.currentTimeMillis();

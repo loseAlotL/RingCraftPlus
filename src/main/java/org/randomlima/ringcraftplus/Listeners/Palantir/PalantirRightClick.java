@@ -26,7 +26,7 @@ public class PalantirRightClick implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getItemMeta().equals(CustomItems.Palantir.getItemMeta())){
+        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore().equals(CustomItems.Palantir.getLore())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
