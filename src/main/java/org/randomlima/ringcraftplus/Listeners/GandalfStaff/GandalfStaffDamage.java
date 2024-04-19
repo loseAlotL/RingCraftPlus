@@ -36,7 +36,7 @@ public class GandalfStaffDamage implements Listener {
                 damagedPlayer.sendMessage(Colorize.format("&cYou have been removed to "+damager.getName()+"'s ally list."));
                 damager.playSound(damager, Sound.ENTITY_ARMOR_STAND_BREAK,1, 1);
             }
-        } else {return;}
+        }
     }
 
     public static List<Player> getGandalfList() {

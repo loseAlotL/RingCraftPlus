@@ -21,6 +21,7 @@ public class CustomItems {
     public static ItemStack gondorHorn;
     public static ItemStack gandalfStaff;
     public static ItemStack sarumanStaff;
+    public static ItemStack radagastStaff;
     public static ItemStack galadrielPhial;
 
     public static void init(){
@@ -29,6 +30,7 @@ public class CustomItems {
         createGondorHorn();
         createGandalfStaff();
         createSarumanStaff();
+        createRadagastStaff();
         createGaladrielPhial();
     }
 
@@ -128,6 +130,29 @@ public class CustomItems {
         meta.setLore(lore);
         item.setItemMeta(meta);
         sarumanStaff = item;
+    }
+
+    private static void createRadagastStaff() {
+        ItemStack item = new ItemStack(Material.STICK,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(2);
+        meta.setDisplayName(Colorize.format("&2[Radagast's Staff]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: Nature's call &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7Summons wolves to aid you in battle. Wolves will disappear after"));
+        lore.add(Colorize.format("&730 seconds."));
+        lore.add(Colorize.format("&8Cooldown: 120s"));
+        lore.add(Colorize.format("&6Ability: Forest Renewal &e&lLEFT CLICK"));
+        lore.add(Colorize.format("&7Rejuvenate all players within 10 blocks and give them &dregeneration 1"));
+        lore.add(Colorize.format("&7and &dsaturation 2 &7for 10 seconds."));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        lore.add(Colorize.format("&6Ability: Entangling Vines &e&lSHIFT-RIGHT CLICK"));
+        lore.add(Colorize.format("&7Releases entangling vines towards your enemy. Vines will root your foe"));
+        lore.add(Colorize.format("&7to the ground for 5 seconds and give them &dpoison 2 &7for 7 seconds."));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        radagastStaff = item;
     }
 
     public static void createGaladrielPhial() {
