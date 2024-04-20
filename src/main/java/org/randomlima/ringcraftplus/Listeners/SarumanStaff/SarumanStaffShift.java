@@ -53,7 +53,7 @@ public class SarumanStaffShift implements Listener {
         long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
 
         int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7This item is on cooldown! Use again in: " + remainingSeconds + " seconds"));
+        player.sendMessage(Colorize.format("&7Illumination is on cooldown! Use again in: " + remainingSeconds + " seconds"));
         player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }
