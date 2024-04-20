@@ -1,20 +1,23 @@
 package org.randomlima.ringcraftplus.Listeners.RadagastStaff;
 
-import org.bukkit.FluidCollisionMode;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
+import org.bukkit.*;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.util.BlockIterator;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -37,22 +40,29 @@ public class RadagastStaffRightClick implements Listener {
                 return;
             }
             event.setCancelled(true);
-            Vector direction = player.getLocation().getDirection();
-            RayTraceResult result = player.getWorld().rayTraceEntities(player.getLocation(), direction, 50);
-            if (result != null && result.getHitEntity() != null) {
-                Entity targetEntity = result.getHitEntity();
-                if (targetEntity instanceof LivingEntity){
-                    for (int i = 0; i < 7; i++) {
-                        Wolf wolf = player.getWorld().spawn(player.getLocation(), Wolf.class);
-                        wolf.setTarget((LivingEntity) targetEntity); // Set the wolf's target to the attacked entity
-                        wolf.setAngry(true); // Make the wolf aggressive
-                    }
-                    setCooldown(player);
-                }
-
-            } else {
-                player.sendMessage("You are not looking at any entity.");
+            summonWolves(player, 7);
+        }
+    }
+    public void summonWolves(Player player, int numWolves){
+        if(player.getTargetEntity(100)!=null && (player.getTargetEntity(100) instanceof LivingEntity)){
+            player.playSound(player.getLocation(), Sound.ENTITY_WOLF_HOWL, 1, 1);
+            for (int i = 0; i < numWolves; i++) {
+                Wolf wolf = (Wolf) player.getWorld().spawnEntity(player.getLocation(), EntityType.WOLF);
+                wolf.setCustomName(player.getName() + "'s wolf");
+                // Customize other properties of the wolf if needed
+                wolf.setCollarColor(DyeColor.BLACK);
+                wolf.addPotionEffect(PotionEffectType.SPEED.createEffect(600, 4));
+                wolf.setAngry(true);
+                wolf.setOwner(player);
+                wolf.setTarget((LivingEntity) player.getTargetEntity(100));
+                Bukkit.getScheduler().runTaskLater(main, () -> {
+                    player.playSound(player.getLocation(), Sound.ENTITY_WOLF_WHINE, 1.0f, 1.0f);
+                }, 20 * 30);
+                Bukkit.getScheduler().runTaskLater(main, wolf::remove, 20 * 30);
             }
+            setCooldown(player);
+        } else {
+            player.sendMessage(Colorize.format("&7There are no enemies in your direction or they are too far away!"));
         }
     }
     private boolean isOnCooldown(Player player) {
