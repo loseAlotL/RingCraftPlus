@@ -37,7 +37,7 @@ public class SarumanStaffLeftClick implements Listener {
             }
             event.setCancelled(true);
             setCooldown(player);
-            
+            player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_ATTACK,1  ,1);
         }
     }
     private boolean isOnCooldown(Player player) {

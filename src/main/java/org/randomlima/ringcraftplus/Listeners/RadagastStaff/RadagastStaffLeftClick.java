@@ -1,10 +1,13 @@
 package org.randomlima.ringcraftplus.Listeners.RadagastStaff;
 
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
@@ -32,7 +35,13 @@ public class RadagastStaffLeftClick implements Listener {
             }
             event.setCancelled(true);
             setCooldown(player);
-
+            player.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 1, 1);
+            for(Entity entity : player.getNearbyEntities(10,10,10)){
+                if(entity instanceof LivingEntity){
+                    ((LivingEntity) entity).addPotionEffect(PotionEffectType.SATURATION.createEffect(200, 1));
+                    ((LivingEntity) entity).addPotionEffect(PotionEffectType.REGENERATION.createEffect(200, 2));
+                }
+            }
         }
     }
     private boolean isOnCooldown(Player player) {

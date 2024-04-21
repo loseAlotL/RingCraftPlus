@@ -117,7 +117,7 @@ public class CustomItems {
         meta.setDisplayName(Colorize.format("&7[Saruman's Staff]"));
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Telekinesis &e&lRIGHT CLICK"));
-        lore.add(Colorize.format("&7All enemies in front of you will be slowed down to a snails"));
+        lore.add(Colorize.format("&7Launch your enemy into the sky, and hold them their for 2 seconds"));
         lore.add(Colorize.format("&7pace for 15s."));
         lore.add(Colorize.format("&8Cooldown: 60s"));
         lore.add(Colorize.format("&6Ability: Fiery Curse &e&lLEFT CLICK"));
@@ -143,8 +143,8 @@ public class CustomItems {
         lore.add(Colorize.format("&730 seconds."));
         lore.add(Colorize.format("&8Cooldown: 120s"));
         lore.add(Colorize.format("&6Ability: Forest Renewal &e&lLEFT CLICK"));
-        lore.add(Colorize.format("&7Rejuvenate all players within 10 blocks and give them &dregeneration 1"));
-        lore.add(Colorize.format("&7and &dsaturation 2 &7for 10 seconds."));
+        lore.add(Colorize.format("&7Rejuvenate all players within 10 blocks and give them &dregeneration 2"));
+        lore.add(Colorize.format("&7and &dsaturation 1 &7for 10 seconds."));
         lore.add(Colorize.format("&8Cooldown: 60s"));
         lore.add(Colorize.format("&6Ability: Entangling Vines &e&lSHIFT-RIGHT CLICK"));
         lore.add(Colorize.format("&7Releases entangling vines towards your enemy. Vines will root your foe"));

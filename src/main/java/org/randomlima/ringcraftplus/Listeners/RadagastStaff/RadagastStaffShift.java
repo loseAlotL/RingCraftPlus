@@ -37,11 +37,13 @@ public class RadagastStaffShift implements Listener {
                 rootPlayer((Player) player.getTargetEntity(100));
                 spawnBlock1(player.getTargetEntity(100));
                 spawnParticle(player.getTargetEntity(100));
+                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
                 setCooldown(player);
             } else if(player.getTargetEntity(100) instanceof LivingEntity){
                 rootEntity((LivingEntity) player.getTargetEntity(100));
                 spawnBlock1(player.getTargetEntity(100));
                 spawnParticle(player.getTargetEntity(100));
+                player.playSound(player.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1, 1);
                 setCooldown(player);
             } else{
                 player.sendMessage(Colorize.format("&7There are no players in your direction or they are too far away!"));
