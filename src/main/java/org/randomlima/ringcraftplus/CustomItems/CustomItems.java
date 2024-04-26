@@ -23,15 +23,19 @@ public class CustomItems {
     public static ItemStack sarumanStaff;
     public static ItemStack radagastStaff;
     public static ItemStack galadrielPhial;
+    public static ItemStack WizardHat;
+    public static ItemStack AmogusRing;
 
     public static void init(){
         createAngmarHelmet();
+        createWizardHat();
         createPalantir();
         createGondorHorn();
         createGandalfStaff();
         createSarumanStaff();
         createRadagastStaff();
         createGaladrielPhial();
+        createAmogusRing();
     }
 
     private static void createAngmarHelmet() {
@@ -47,15 +51,29 @@ public class CustomItems {
         meta.setDisplayName(Colorize.format("&4[Witch King of Angmar's Helmet]"));
         List<String> lore = new ArrayList<>();
         lore.add("");
-        lore.add(Colorize.format("&7The one and only helmet of the &4Witch King&7."));
+        lore.add(Colorize.format("&8The one and only helmet of the &7Witch King&8."));
         lore.add("");
-        lore.add(Colorize.format("&8Gives the wearer &dregeneration 1&8, &dnight vision "));
-        lore.add(Colorize.format("&8but also gives them &dwithering &8while in water. Gives all"));
-        lore.add(Colorize.format("&8surrounding players in a 10 block radius &dslowness 2&8."));
-        lore.add("");
+        lore.add(Colorize.format("&7Gives the wearer &dregeneration 1&7, &dnight vision "));
+        lore.add(Colorize.format("&7but also gives them &dwithering &7while in water. Gives all"));
+        lore.add(Colorize.format("&7surrounding players in a 10 block radius &dslowness 2&7."));
         meta.setLore(lore);
         item.setItemMeta(meta);
         AngmarHelmet = item;
+    }
+
+    private static void createWizardHat() {
+        ItemStack item = new ItemStack(Material.CARVED_PUMPKIN,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(1);
+        meta.setDisplayName(Colorize.format("&3[Wizard Hat]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&8Worn by the greatest wizards."));
+        lore.add("");
+        lore.add(Colorize.format("&6Passive Ability: Mystical Aura &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7Cuts all cooldowns on wizard staffs in half."));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        WizardHat = item;
     }
 
     private static void createPalantir() {
@@ -118,7 +136,6 @@ public class CustomItems {
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Telekinesis &e&lRIGHT CLICK"));
         lore.add(Colorize.format("&7Launch your enemy into the sky, and hold them their for 2 seconds"));
-        lore.add(Colorize.format("&7pace for 15s."));
         lore.add(Colorize.format("&8Cooldown: 60s"));
         lore.add(Colorize.format("&6Ability: Fiery Curse &e&lLEFT CLICK"));
         lore.add(Colorize.format("&7Launches a cluster of fireballs to deal massive damage!"));
@@ -172,5 +189,18 @@ public class CustomItems {
         meta.setLore(lore);
         item.setItemMeta(meta);
         galadrielPhial = item;
+    }
+
+    public static void createAmogusRing() {
+        ItemStack item = new ItemStack(Material.GOLD_NUGGET,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(69);
+        meta.setDisplayName(Colorize.format("&4[AMOGUS &bRING]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: AMOGUS &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7AMOGUS YES SUS IMPOSTER RED"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusRing = item;
     }
 }

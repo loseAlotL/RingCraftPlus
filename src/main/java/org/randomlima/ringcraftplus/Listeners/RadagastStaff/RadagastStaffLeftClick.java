@@ -10,9 +10,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
+import org.randomlima.ringcraftplus.Listeners.AngmarHelmet.AngmarHelmetArmor;
+import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class RadagastStaffLeftClick implements Listener {
@@ -22,8 +25,17 @@ public class RadagastStaffLeftClick implements Listener {
     }
 
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
+    private long cooldownDuration = 60 * 1000;// Cooldown duration in milliseconds (e.g., 60 seconds)
 
+    public void isHalf(Player player){
+        WizardHatArmor wizardclass = new WizardHatArmor(main);
+        List<Player> wizardList = wizardclass.getWizardList();
+        if (wizardList.contains(player)){
+            cooldownDuration = cooldownDuration/2;
+        } else {
+            cooldownDuration = 60 * 1000;
+        }
+    }
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
@@ -53,6 +65,7 @@ public class RadagastStaffLeftClick implements Listener {
         return false;
     }
     private void setCooldown(Player player) {
+        isHalf(player);
         cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
     }
 

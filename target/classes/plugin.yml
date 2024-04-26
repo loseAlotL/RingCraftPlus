@@ -3,27 +3,39 @@ version: '1.0-SNAPSHOT'
 main: org.randomlima.ringcraftplus.RingCraftPlus
 api-version: '1.20'
 commands:
+  angmarhelmet:
+    description: A command that gives the player The Witch King of Angmar.
+    usage: /<command>
+    permission: rcp.items
   palantir:
-    description: A command that gives the player palantir.
+    description: A command that gives the player Palantir.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
   gondorhorn:
-    description: A command that gives the player the horn of gondor.
+    description: A command that gives the player the horn of Gondor.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
   gandalfstaff:
-    description: A command that gives the player gandalfs staff.
+    description: A command that gives the player Gandalf's staff.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
   sarumanstaff:
     description: A command that gives the player Saruman's staff.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
   galadrielphial:
     description: A command that gives the player Galadriel's Phial.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
   radagaststaff:
     description: A command that gives the player Radagast's Staff.
     usage: /<command>
-    permission: OP
+    permission: rcp.items
+  wizardhat:
+    description: A command that gives the player a wizzard hat.
+    usage: /<command>
+    permission: rcp.items
+  amogusring:
+    description: A command that gives the player the amogus ring.
+    usage: /<command>
+    permission: rcp.items

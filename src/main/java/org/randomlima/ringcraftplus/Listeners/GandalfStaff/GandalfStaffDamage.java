@@ -16,6 +16,7 @@ import java.util.List;
 public class GandalfStaffDamage implements Listener {
     static List<Player> gandalfAllies = new ArrayList<>();
 
+
     @EventHandler
     public void onDamageEvent(EntityDamageByEntityEvent event){
         if (event.getDamager() instanceof Player &&  event.getDamager().isSneaking() && ((Player) event.getDamager()).getInventory().getItemInMainHand().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta()) && (event.getEntity() instanceof Player)){

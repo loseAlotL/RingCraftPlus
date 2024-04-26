@@ -14,9 +14,11 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.randomlima.ringcraftplus.Colorize;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
+import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import static java.lang.Math.cos;
@@ -31,6 +33,15 @@ public class GandalfStaffRightClick implements Listener {
 
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
     private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
+    public void isHalf(Player player){
+        WizardHatArmor wizardclass = new WizardHatArmor(main);
+        List<Player> wizardList = wizardclass.getWizardList();
+        if (wizardList.contains(player)){
+            cooldownDuration = cooldownDuration/2;
+        } else {
+            cooldownDuration = 60 * 1000;
+        }
+    }
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
@@ -51,6 +62,7 @@ public class GandalfStaffRightClick implements Listener {
     private void particleCircle(Player player) {
         final int[] ticks = {0};
         final int durationTicks = 5;
+        Location loc = player.getLocation();
         taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, new Runnable() {
 
             @Override
@@ -60,7 +72,7 @@ public class GandalfStaffRightClick implements Listener {
                     return;
                 }
                 for (double i = 0; i <360; i +=90){
-                    Location loc = player.getLocation();
+
                     double angle = i * Math.PI / 180;
                     double x = 2 * Math.cos(angle);
                     double z = 2 * Math.sin(angle);
@@ -79,6 +91,7 @@ public class GandalfStaffRightClick implements Listener {
         return false;
     }
     private void setCooldown(Player player) {
+        isHalf(player);
         cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
     }
 

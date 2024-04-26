@@ -73,6 +73,7 @@ public class GaladrielPhialRightClick implements Listener {
                 }
                 // Deal damage every second
                 entity.damage(3);
+                entity.addPotionEffect(PotionEffectType.GLOWING.createEffect(10, 1));
                 for (double i = 0; i <360; i +=5){
                     Location loc = player.getLocation();
                     double angle = i * Math.PI / 180;
