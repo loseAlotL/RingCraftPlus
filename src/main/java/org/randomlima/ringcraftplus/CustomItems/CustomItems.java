@@ -25,6 +25,9 @@ public class CustomItems {
     public static ItemStack galadrielPhial;
     public static ItemStack WizardHat;
     public static ItemStack AmogusRing;
+    public static ItemStack UrukHaiHelmet;
+    public static ItemStack UrukHaiShield;
+    public static ItemStack UrukHaiSword;
 
     public static void init(){
         createAngmarHelmet();
@@ -60,6 +63,47 @@ public class CustomItems {
         item.setItemMeta(meta);
         AngmarHelmet = item;
     }
+    private static void createUrukHaiHelmet() {
+        ItemStack item = new ItemStack(Material.CARVED_PUMPKIN,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(5);
+        meta.setDisplayName(Colorize.format("&8[UrukHai Helmet]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&8Worn by the warriors of Saruman."));
+        lore.add("");
+        lore.add(Colorize.format("&6Passive Ability: Feral Prowl &e&lWHILE WORN"));
+        lore.add(Colorize.format("&7UrukHai yes yes"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        UrukHaiHelmet = item;
+    }
+    private static void createUrukHaiShield() {
+        ItemStack item = new ItemStack(Material.SHIELD,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(5);
+        meta.setDisplayName(Colorize.format("&8[UrukHai Shield]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&8Worn by the warriors of Saruman."));
+        lore.add("");
+        lore.add(Colorize.format("&6Passive Ability: Isengard's Mark &e&lWHILE HELD"));
+        lore.add(Colorize.format("&7UrukHai yes yes"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        UrukHaiShield = item;
+    }
+    private static void createUrukHaiSword() {
+        ItemStack item = new ItemStack(Material.NETHERITE_SWORD,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&8[UrukHai Sword]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&8Worn by the warriors of Saruman."));
+        lore.add("");
+        lore.add(Colorize.format("&6Passive Ability: Vile Steel &e&lWHILE HELD"));
+        lore.add(Colorize.format("&7UrukHai yes yes"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        UrukHaiSword = item;
+    }
 
     private static void createWizardHat() {
         ItemStack item = new ItemStack(Material.CARVED_PUMPKIN,1);
@@ -69,7 +113,7 @@ public class CustomItems {
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&8Worn by the greatest wizards."));
         lore.add("");
-        lore.add(Colorize.format("&6Passive Ability: Mystical Aura &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&6Passive Ability: Mystical Aura &e&lWHILE WORN"));
         lore.add(Colorize.format("&7Cuts all cooldowns on wizard staffs in half."));
         meta.setLore(lore);
         item.setItemMeta(meta);

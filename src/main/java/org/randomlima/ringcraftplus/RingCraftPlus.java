@@ -44,6 +44,9 @@ public final class RingCraftPlus extends JavaPlugin {
         this.getCommand("rcp.radagaststaff").setExecutor(new RadagastStaff());
         this.getCommand("rcp.wizardhat").setExecutor(new WizardHat());
         this.getCommand("rcp.amogusring").setExecutor(new AmogusRing());
+        this.getCommand("rcp.urukhaihelmet").setExecutor(new UrukHaiHelmet());
+        this.getCommand("rcp.urukhaishield").setExecutor(new UrukHaiShield());
+        this.getCommand("rcp.urukhaisword").setExecutor(new UrukHaiSword());
 
         getServer().getPluginManager().registerEvents(new GondorHornRightClick(), this);
 

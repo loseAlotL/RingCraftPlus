@@ -39,3 +39,15 @@ commands:
     description: A command that gives the player the amogus ring.
     usage: /<command>
     permission: rcp.items
+  urukhaishield:
+    description: A command that gives the player the urukhai shield.
+    usage: /<command>
+    permission: rcp.items
+  urukhaisword:
+    description: A command that gives the player the urukhai sword.
+    usage: /<command>
+    permission: rcp.items
+  urukhaihelmet:
+    description: A command that gives the player the urukhai helmet.
+    usage: /<command>
+    permission: rcp.items
