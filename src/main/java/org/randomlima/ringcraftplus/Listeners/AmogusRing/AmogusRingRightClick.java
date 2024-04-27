@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
@@ -20,20 +21,21 @@ public class AmogusRingRightClick implements Listener {
     private int taskID;
 
     private final RingCraftPlus main;
+    private CooldownManager cooldownManager;
+    private int cooldown = 1;
     public AmogusRingRightClick(RingCraftPlus main) {
         this.main = main;
+        this.cooldownManager = new CooldownManager(main, cooldown);
+        cooldownManager.setCooldownMessage("&7Forest Renewal is on cooldown! Use again in: %seconds% seconds.");
     }
-
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 1 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore() != null && event.getItem().getLore().equals(CustomItems.AmogusRing.getLore())){
-            if (isOnCooldown(player)) {
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
             event.setCancelled(true);
@@ -47,7 +49,7 @@ public class AmogusRingRightClick implements Listener {
                 Vector velocity = entity.getVelocity();
                 velocity.setY(1.5);
                 entity.setVelocity(velocity);
-                setCooldown(player);
+                cooldownManager.setCooldown(player);
                 player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_SUMMON, 1, 1);
                 entity.addPotionEffect(PotionEffectType.GLOWING.createEffect(20 * 4, 1));
                 Bukkit.getScheduler().runTaskLater(main, () -> {
@@ -99,28 +101,5 @@ public class AmogusRingRightClick implements Listener {
         double deltaY = point2.getY() - point1.getY();
         double deltaZ = point2.getZ() - point1.getZ();
         return new Vector(deltaX, deltaY, deltaZ);
-    }
-
-
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7AMOGUS is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }

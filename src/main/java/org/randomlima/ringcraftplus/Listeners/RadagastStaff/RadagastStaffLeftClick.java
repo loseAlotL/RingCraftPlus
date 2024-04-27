@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.AngmarHelmet.AngmarHelmetArmor;
 import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
@@ -20,33 +21,36 @@ import java.util.UUID;
 
 public class RadagastStaffLeftClick implements Listener {
     private final RingCraftPlus main;
+    private int cooldown = 60;
     public RadagastStaffLeftClick(RingCraftPlus main) {
         this.main = main;
-    }
 
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000;// Cooldown duration in milliseconds (e.g., 60 seconds)
+        this.cooldownManager = new CooldownManager(main, cooldown);
+        cooldownManager.setCooldownMessage("&7Forest Renewal is on cooldown! Use again in: %seconds% seconds.");
+    }
+    private CooldownManager cooldownManager;
 
     public void isHalf(Player player){
         WizardHatArmor wizardclass = new WizardHatArmor(main);
         List<Player> wizardList = wizardclass.getWizardList();
         if (wizardList.contains(player)){
-            cooldownDuration = cooldownDuration/2;
+            cooldownManager.changeCooldownTimer(30); // changes the cooldown timer to half of 45 seconds.
         } else {
-            cooldownDuration = 60 * 1000;
+            cooldownManager.changeCooldownTimer(60); // sets the cooldown timer back to one minute.
         }
     }
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isLeftClick() && event.getItem().getItemMeta().equals(CustomItems.radagastStaff.getItemMeta())){
-            if (isOnCooldown(player)) {
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
+            isHalf(player);
             event.setCancelled(true);
-            setCooldown(player);
+            cooldownManager.setCooldown(player);
             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 1, 1);
             for(Entity entity : player.getNearbyEntities(10,10,10)){
                 if(entity instanceof LivingEntity){
@@ -55,27 +59,5 @@ public class RadagastStaffLeftClick implements Listener {
                 }
             }
         }
-    }
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        isHalf(player);
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7Forest Renewal is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }

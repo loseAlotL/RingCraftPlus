@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
 import org.randomlima.ringcraftplus.RingCraftPlus;
@@ -27,19 +28,21 @@ import static java.lang.Math.sin;
 public class GandalfStaffRightClick implements Listener {
     private int taskID;
     private final RingCraftPlus main;
+    private CooldownManager cooldownManager;
+    private int cooldown = 60;
     public GandalfStaffRightClick(RingCraftPlus main) {
         this.main = main;
+        this.cooldownManager = new CooldownManager(main, cooldown);
+        cooldownManager.setCooldownMessage("&7Forest Renewal is on cooldown! Use again in: %seconds% seconds.");
     }
 
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
     public void isHalf(Player player){
         WizardHatArmor wizardclass = new WizardHatArmor(main);
         List<Player> wizardList = wizardclass.getWizardList();
         if (wizardList.contains(player)){
-            cooldownDuration = cooldownDuration/2;
+            cooldownManager.changeCooldownTimer(30); // changes the cooldown timer to half of 45 seconds.
         } else {
-            cooldownDuration = 60 * 1000;
+            cooldownManager.changeCooldownTimer(60); // sets the cooldown timer back to one minute.
         }
     }
 
@@ -47,13 +50,14 @@ public class GandalfStaffRightClick implements Listener {
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isRightClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.gandalfStaff.getItemMeta())){
-            if (isOnCooldown(player)) {
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
+            isHalf(player);
             event.setCancelled(true);
-            setCooldown(player);
+            cooldownManager.setCooldown(player);
             particleCircle(player);
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 150, 1));
             player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_SPAWN,1,1);
@@ -81,27 +85,5 @@ public class GandalfStaffRightClick implements Listener {
                 ticks[0]++;
             }
         }, 0L, 10L); //0 Tick initial delay, 20 Tick (1 Second) between repeats
-    }
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        isHalf(player);
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7Smoke Rings of Gandalf is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }

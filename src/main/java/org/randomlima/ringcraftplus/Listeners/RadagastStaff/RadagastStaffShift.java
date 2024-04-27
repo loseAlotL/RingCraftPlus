@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
 import org.randomlima.ringcraftplus.RingCraftPlus;
@@ -20,18 +21,19 @@ public class RadagastStaffShift implements Listener {
     private final RingCraftPlus main;
     public RadagastStaffShift(RingCraftPlus main) {
         this.main = main;
+        this.cooldownManager = new CooldownManager(main, cooldown);
+        cooldownManager.setCooldownMessage("&7Forest Renewal is on cooldown! Use again in: %seconds% seconds.");
     }
+    private int cooldown = 60;
+    private CooldownManager cooldownManager;
 
-
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
     public void isHalf(Player player){
         WizardHatArmor wizardclass = new WizardHatArmor(main);
         List<Player> wizardList = wizardclass.getWizardList();
         if (wizardList.contains(player)){
-            cooldownDuration = cooldownDuration/2;
+            cooldownManager.changeCooldownTimer(30); // changes the cooldown timer to half of 45 seconds.
         } else {
-            cooldownDuration = 60 * 1000;
+            cooldownManager.changeCooldownTimer(60); // sets the cooldown timer back to one minute.
         }
     }
 
@@ -39,11 +41,12 @@ public class RadagastStaffShift implements Listener {
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isRightClick() && event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.radagastStaff.getItemMeta())){
-            if (isOnCooldown(player)) {
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
+            isHalf(player);
             event.setCancelled(true);
             if (player.getTargetEntity(100) != null && (player.getTargetEntity(100) instanceof Player)){
                 Player entity = (Player) player.getTargetEntity(100);
@@ -51,14 +54,14 @@ public class RadagastStaffShift implements Listener {
                 entity.playSound(entity.getLocation(), Sound.ENTITY_WARDEN_EMERGE,1,1);
                 spawnBlock1(entity);
                 spawnParticle(entity);
-                setCooldown(player);
+                cooldownManager.setCooldown(player);
             } else if(player.getTargetEntity(100) instanceof LivingEntity){
                 LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
                 rootEntity(entity);
                 player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_EMERGE,1,1);
                 spawnBlock1(entity);
                 spawnParticle(entity);
-                setCooldown(player);
+                cooldownManager.setCooldown(player);
             } else{
                 player.sendMessage(Colorize.format("&7There are no players in your direction or they are too far away!"));
             }
@@ -104,27 +107,5 @@ public class RadagastStaffShift implements Listener {
             double z = 1 * Math.sin(angle);
             loc.getWorld().spawnParticle(Particle.SLIME, loc.getX() + x, loc.getY() + 0.5, loc.getZ() + z, 0);
         }
-    }
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        isHalf(player);
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7Entangling Vines is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }

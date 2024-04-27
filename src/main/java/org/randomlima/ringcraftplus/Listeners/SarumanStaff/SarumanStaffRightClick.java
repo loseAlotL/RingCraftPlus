@@ -26,8 +26,6 @@ public class SarumanStaffRightClick implements Listener {
         this.cooldownManager = new CooldownManager(main, 60); //new CooldownManager with 60 seconds.
         this.cooldownManager.setCooldownMessage("&7Telekinesis is on cooldown! Use again in: %seconds% seconds."); //the %seconds% will be replaced with the remaining seconds.
     }
-
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
     public void isHalf(Player player){
         WizardHatArmor wizardclass = new WizardHatArmor(main);
         List<Player> wizardList = wizardclass.getWizardList();
@@ -42,11 +40,12 @@ public class SarumanStaffRightClick implements Listener {
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isRightClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.sarumanStaff.getItemMeta())) {
-            if (cooldownManager.isOnCooldown(player)) { //checks to see if the player is on cooldown.
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                cooldownManager.displayTimeLeftInteger(player); //use .displayTimeLeftExact(player); to display the exact time left.
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
+            isHalf(player);
             event.setCancelled(true);
             if (player.getTargetEntity(100) != null && (player.getTargetEntity(100) instanceof LivingEntity)) {
                 LivingEntity entity = (LivingEntity) player.getTargetEntity(100);

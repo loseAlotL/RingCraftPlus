@@ -28,6 +28,7 @@ public class CustomItems {
     public static ItemStack UrukHaiHelmet;
     public static ItemStack UrukHaiShield;
     public static ItemStack UrukHaiSword;
+    public static ItemStack BalrogWhip;
 
     public static void init(){
         createAngmarHelmet();
@@ -39,6 +40,10 @@ public class CustomItems {
         createRadagastStaff();
         createGaladrielPhial();
         createAmogusRing();
+        createBalrogWhip();
+        createUrukHaiHelmet();
+        createUrukHaiShield();
+        createUrukHaiSword();
     }
 
     private static void createAngmarHelmet() {
@@ -251,5 +256,18 @@ public class CustomItems {
         meta.setLore(lore);
         item.setItemMeta(meta);
         AmogusRing = item;
+    }
+
+    private static void createBalrogWhip() {
+        ItemStack item = new ItemStack(Material.FISHING_ROD,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[Balrog's Whip]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: Infernal Sweep &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7BALROG WHIP"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        BalrogWhip = item;
     }
 }

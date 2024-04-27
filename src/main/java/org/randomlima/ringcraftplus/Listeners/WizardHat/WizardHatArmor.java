@@ -23,7 +23,7 @@ public class WizardHatArmor implements Listener {
     @EventHandler
     public void onHelmetEquip(PlayerArmorChangeEvent event) {
         Player player = (Player) event.getPlayer();
-        if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.WizardHat)) {
+        if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getLore() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.WizardHat.getLore())) {
             wizards.add(player);
         } else if (wizards.contains(player)) {
             wizards.remove(player);

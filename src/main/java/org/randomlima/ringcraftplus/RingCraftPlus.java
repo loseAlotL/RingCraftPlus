@@ -11,6 +11,7 @@ import org.randomlima.ringcraftplus.Commands.*;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.AmogusRing.AmogusRingRightClick;
 import org.randomlima.ringcraftplus.Listeners.AngmarHelmet.AngmarHelmetArmor;
+import org.randomlima.ringcraftplus.Listeners.BalrogWhip.BalrogWhipRightClick;
 import org.randomlima.ringcraftplus.Listeners.GaladrielPhial.GaladrielPhialRightClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffDamage;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffLeftClick;
@@ -48,8 +49,9 @@ public final class RingCraftPlus extends JavaPlugin {
         this.getCommand("rcpurukhaihelmet").setExecutor(new UrukHaiHelmet());
         this.getCommand("rcpurukhaishield").setExecutor(new UrukHaiShield());
         this.getCommand("rcpurukhaisword").setExecutor(new UrukHaiSword());
+        this.getCommand("rcpbalrogwhip").setExecutor(new BalrogWhip());
 
-        getServer().getPluginManager().registerEvents(new GondorHornRightClick(), this);
+        getServer().getPluginManager().registerEvents(new GondorHornRightClick(this), this);
 
         getServer().getPluginManager().registerEvents(new PalantirRightClick(this), this);
 
@@ -73,6 +75,8 @@ public final class RingCraftPlus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new WizardHatArmor(this), this);
 
         getServer().getPluginManager().registerEvents(new AmogusRingRightClick(this), this);
+
+        getServer().getPluginManager().registerEvents(new BalrogWhipRightClick(this), this);
 
         getServer().getScheduler().runTaskTimer(this, () -> {
             // Iterate through online players and check if they are in water

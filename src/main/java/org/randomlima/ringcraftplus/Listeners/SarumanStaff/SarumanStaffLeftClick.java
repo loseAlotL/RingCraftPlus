@@ -34,7 +34,7 @@ public class SarumanStaffLeftClick implements Listener {
         if (wizardList.contains(player)){
             cooldownManager.changeCooldownTimer(22.5); // changes the cooldown timer to half of 45 seconds.
         } else {
-            cooldownManager.changeCooldownTimer(60); // sets the cooldown timer back to one minute.
+            cooldownManager.changeCooldownTimer(45); // sets the cooldown timer back to one minute.
         }
     }
 
@@ -47,6 +47,7 @@ public class SarumanStaffLeftClick implements Listener {
                 cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
+            isHalf(player);
             event.setCancelled(true);
             if (player.getTargetEntity(100) != null && (player.getTargetEntity(100) instanceof LivingEntity)) {
                 LivingEntity entity = (LivingEntity) player.getTargetEntity(100);

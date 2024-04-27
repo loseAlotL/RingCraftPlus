@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.RingCraftPlus;
 
@@ -20,20 +21,18 @@ public class PalantirRightClick implements Listener {
     public PalantirRightClick(RingCraftPlus main) {
         this.main = main;
     }
-
-    private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
+    private CooldownManager cooldownManager;
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore() != null && event.getItem().getLore().equals(CustomItems.Palantir.getLore())){
-            if (isOnCooldown(player)) {
+        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore() != null && event.getItem().getLore().equals(CustomItems.Palantir.getItemMeta().getLore())){
+            if (cooldownManager.isOnCooldown(player)) {
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player);
                 return;
             }
             event.setCancelled(true);
-            setCooldown(player);
+            cooldownManager.setCooldown(player);
             player.playSound(player, Sound.BLOCK_BEACON_AMBIENT,1, 1);
             for (Entity entity : player.getNearbyEntities(10, 10, 10)){
                 if (entity instanceof Player) {
@@ -42,26 +41,5 @@ public class PalantirRightClick implements Listener {
                 }
             }
         }
-    }
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7Ethereal Gaze is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }
