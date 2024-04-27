@@ -9,6 +9,7 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.randomlima.ringcraftplus.Colorize;
+import org.randomlima.ringcraftplus.CooldownManager;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
 import org.randomlima.ringcraftplus.Listeners.WizardHat.WizardHatArmor;
 import org.randomlima.ringcraftplus.RingCraftPlus;
@@ -19,19 +20,21 @@ import java.util.UUID;
 
 public class SarumanStaffRightClick implements Listener {
     private final RingCraftPlus main;
+    private CooldownManager cooldownManager;
     public SarumanStaffRightClick(RingCraftPlus main) {
         this.main = main;
+        this.cooldownManager = new CooldownManager(main, 60); //new CooldownManager with 60 seconds.
+        this.cooldownManager.setCooldownMessage("&7Telekinesis is on cooldown! Use again in: %seconds% seconds."); //the %seconds% will be replaced with the remaining seconds.
     }
 
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private long cooldownDuration = 60 * 1000; // Cooldown duration in milliseconds (e.g., 60 seconds)
     public void isHalf(Player player){
         WizardHatArmor wizardclass = new WizardHatArmor(main);
         List<Player> wizardList = wizardclass.getWizardList();
         if (wizardList.contains(player)){
-            cooldownDuration = cooldownDuration/2;
+            cooldownManager.changeCooldownTimer(30); //sets the new cooldown to half a minute.
         } else {
-            cooldownDuration = 60 * 1000;
+            cooldownManager.changeCooldownTimer(60); //sets the cooldown back to one minute.
         }
     }
 
@@ -39,9 +42,9 @@ public class SarumanStaffRightClick implements Listener {
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isRightClick() && !event.getPlayer().isSneaking() && event.getItem().getItemMeta().equals(CustomItems.sarumanStaff.getItemMeta())) {
-            if (isOnCooldown(player)) {
+            if (cooldownManager.isOnCooldown(player)) { //checks to see if the player is on cooldown.
                 event.setCancelled(true);
-                displayCooldownTime(player);
+                cooldownManager.displayTimeLeftInteger(player); //use .displayTimeLeftExact(player); to display the exact time left.
                 return;
             }
             event.setCancelled(true);
@@ -50,7 +53,7 @@ public class SarumanStaffRightClick implements Listener {
                 Vector velocity = entity.getVelocity();
                 velocity.setY(2.2);
                 entity.setVelocity(velocity);
-                setCooldown(player);
+                cooldownManager.setCooldown(player); //sets the cooldown of the player
                 player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_SUMMON, 1, 1);
                 entity.addPotionEffect(PotionEffectType.GLOWING.createEffect(20 * 4, 1));
                 Bukkit.getScheduler().runTaskLater(main, () -> {
@@ -81,27 +84,5 @@ public class SarumanStaffRightClick implements Listener {
             double z = radius * Math.sin(angle);
             loc.getWorld().spawnParticle(Particle.FLAME, loc.getX() + x, loc.getY() + 0.5, loc.getZ() + z, 0);
         }
-    }
-    private boolean isOnCooldown(Player player) {
-        if (cooldowns.containsKey(player.getUniqueId())) {
-            long currentTime = System.currentTimeMillis();
-            long lastUseTime = cooldowns.get(player.getUniqueId());
-            return (currentTime - lastUseTime) < cooldownDuration;
-        }
-        return false;
-    }
-    private void setCooldown(Player player) {
-        isHalf(player);
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis());
-    }
-
-    private void displayCooldownTime(Player player) {
-        long currentTime = System.currentTimeMillis();
-        long lastUseTime = cooldowns.get(player.getUniqueId());
-        long remainingTimeMillis = cooldownDuration - (currentTime - lastUseTime);
-
-        int remainingSeconds = (int) (remainingTimeMillis / 1000);
-        player.sendMessage(Colorize.format("&7Telekinesis is on cooldown! Use again in: " + remainingSeconds + " seconds"));
-        player.playSound(player, Sound.ENTITY_ENDERMAN_TELEPORT,1, 1);
     }
 }
