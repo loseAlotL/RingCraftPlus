@@ -97,6 +97,7 @@ public class GandalfStaffShift implements Listener {
         if (cooldowns.containsKey(player.getUniqueId())) {
             long currentTime = System.currentTimeMillis();
             long lastUseTime = cooldowns.get(player.getUniqueId());
+
             return (currentTime - lastUseTime) < cooldownDuration;
         }
         return false;
