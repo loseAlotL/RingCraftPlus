@@ -30,7 +30,7 @@ public class AmogusRingRightClick implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore().equals(CustomItems.AmogusRing.getLore())){
+        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore() != null && event.getItem().getLore().equals(CustomItems.AmogusRing.getLore())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);

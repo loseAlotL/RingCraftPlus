@@ -46,7 +46,7 @@ public class GandalfStaffLeftClick implements Listener {
         //GandalfStaffDamage gandalfStaffDamage = new GandalfStaffDamage();
         Player player = event.getPlayer();
         if (event.getItem() != null && event.getAction().isLeftClick() && !event.getPlayer().isSneaking() && event.getItem().equals(CustomItems.gandalfStaff)){
-            List<Player> gandalfAllies = GandalfStaffDamage.getGandalfList(); // Assuming RingCraftPlus has a method to get allies list
+            List<Player> gandalfAllies = GandalfStaffDamage.getGandalfList();
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
@@ -65,7 +65,7 @@ public class GandalfStaffLeftClick implements Listener {
                     gandalfAlly.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 1));
                     gandalfAlly.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
                     gandalfAlly.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 2));
-                    gandalfAlly.playSound(gandalfAlly, Sound.ENTITY_GHAST_SHOOT, 1, 1);
+                    gandalfAlly.playSound(gandalfAlly, Sound.ENTITY_GHAST_WARN, 1, 1);
                     for (double i = 0; i <360; i +=5){
                         Location loc = gandalfAlly.getLocation();
                         double angle = i * Math.PI / 180;

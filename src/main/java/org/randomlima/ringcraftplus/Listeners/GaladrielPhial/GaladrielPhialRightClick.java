@@ -38,7 +38,7 @@ public class GaladrielPhialRightClick implements Listener {
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore().equals(CustomItems.galadrielPhial.getLore())){
+        if (event.getItem() != null && event.getAction().isRightClick() && event.getItem().getLore() != null && event.getItem().getLore().equals(CustomItems.galadrielPhial.getLore())){
             if (isOnCooldown(player)) {
                 event.setCancelled(true);
                 displayCooldownTime(player);
