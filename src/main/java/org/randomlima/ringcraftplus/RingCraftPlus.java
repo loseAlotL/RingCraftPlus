@@ -16,6 +16,7 @@ import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffDamage;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffLeftClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffRightClick;
 //import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
+import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
 import org.randomlima.ringcraftplus.Listeners.GondorHorn.GondorHornRightClick;
 import org.randomlima.ringcraftplus.Listeners.Palantir.PalantirRightClick;
 import org.randomlima.ringcraftplus.Listeners.RadagastStaff.RadagastStaffLeftClick;
@@ -35,18 +36,18 @@ public final class RingCraftPlus extends JavaPlugin {
         // Plugin startup logic
         System.err.println("Server has started.");
         CustomItems.init();
-        this.getCommand("rcp.angmarhelmet").setExecutor(new AngmarHelmet());
-        this.getCommand("rcp.palantir").setExecutor(new Palantir());
-        this.getCommand("rcp.gondorhorn").setExecutor(new GondorHorn());
-        this.getCommand("rcp.gandalfstaff").setExecutor(new GandalfStaff());
-        this.getCommand("rcp.sarumanstaff").setExecutor(new SarumanStaff());
-        this.getCommand("rcp.galadrielphial").setExecutor(new GaladrielPhial());
-        this.getCommand("rcp.radagaststaff").setExecutor(new RadagastStaff());
-        this.getCommand("rcp.wizardhat").setExecutor(new WizardHat());
-        this.getCommand("rcp.amogusring").setExecutor(new AmogusRing());
-        this.getCommand("rcp.urukhaihelmet").setExecutor(new UrukHaiHelmet());
-        this.getCommand("rcp.urukhaishield").setExecutor(new UrukHaiShield());
-        this.getCommand("rcp.urukhaisword").setExecutor(new UrukHaiSword());
+        this.getCommand("rcpangmarhelmet").setExecutor(new AngmarHelmet());
+        this.getCommand("rcppalantir").setExecutor(new Palantir());
+        this.getCommand("rcpgondorhorn").setExecutor(new GondorHorn());
+        this.getCommand("rcpgandalfstaff").setExecutor(new GandalfStaff());
+        this.getCommand("rcpsarumanstaff").setExecutor(new SarumanStaff());
+        this.getCommand("rcpgaladrielphial").setExecutor(new GaladrielPhial());
+        this.getCommand("rcpradagaststaff").setExecutor(new RadagastStaff());
+        this.getCommand("rcpwizardhat").setExecutor(new WizardHat());
+        this.getCommand("rcpamogusring").setExecutor(new AmogusRing());
+        this.getCommand("rcpurukhaihelmet").setExecutor(new UrukHaiHelmet());
+        this.getCommand("rcpurukhaishield").setExecutor(new UrukHaiShield());
+        this.getCommand("rcpurukhaisword").setExecutor(new UrukHaiSword());
 
         getServer().getPluginManager().registerEvents(new GondorHornRightClick(), this);
 
@@ -55,6 +56,7 @@ public final class RingCraftPlus extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GandalfStaffRightClick(this), this);
         getServer().getPluginManager().registerEvents(new GandalfStaffLeftClick(this), this);
         getServer().getPluginManager().registerEvents(new GandalfStaffDamage(), this);
+        getServer().getPluginManager().registerEvents(new GandalfStaffShift(this), this);
 
         getServer().getPluginManager().registerEvents(new SarumanStaffRightClick(this), this);
         getServer().getPluginManager().registerEvents(new SarumanStaffLeftClick(this), this);

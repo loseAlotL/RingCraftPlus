@@ -166,8 +166,13 @@ public class CustomItems {
         lore.add(Colorize.format("&7Gives &3allies &dinstant health 2, regeneration 1 &7 and"));
         lore.add(Colorize.format("&dspeed 1&7 for 10 seconds."));
         lore.add(Colorize.format("&8Cooldown: 75s"));
+        lore.add(Colorize.format("&6Ability: Repelling Flame &e&lSHIFT-RIGHT CLICK"));
+        lore.add(Colorize.format("&7Launches all entities in a 8 block radius away from you. The ability"));
+        lore.add(Colorize.format("&7will ignore &3allies&7."));
+        lore.add(Colorize.format("&8Cooldown: 75s"));
         lore.add(Colorize.format("&6Ability: Marker &e&lSHIFT-LEFT CLICK"));
         lore.add(Colorize.format("&7Use while facing a player to mark tham as an &3ally&7."));
+
         meta.setLore(lore);
         item.setItemMeta(meta);
         gandalfStaff = item;

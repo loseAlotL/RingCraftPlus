@@ -48,7 +48,7 @@ public class SarumanStaffRightClick implements Listener {
             if (player.getTargetEntity(100) != null && (player.getTargetEntity(100) instanceof LivingEntity)) {
                 LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
                 Vector velocity = entity.getVelocity();
-                velocity.setY(1.5);
+                velocity.setY(2.2);
                 entity.setVelocity(velocity);
                 setCooldown(player);
                 player.playSound(player.getLocation(), Sound.ENTITY_EVOKER_PREPARE_SUMMON, 1, 1);

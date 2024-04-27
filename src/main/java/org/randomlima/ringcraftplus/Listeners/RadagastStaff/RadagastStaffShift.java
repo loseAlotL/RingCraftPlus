@@ -46,22 +46,18 @@ public class RadagastStaffShift implements Listener {
             }
             event.setCancelled(true);
             if (player.getTargetEntity(100) != null && (player.getTargetEntity(100) instanceof Player)){
-                rootPlayer((Player) Objects.requireNonNull(player.getTargetEntity(100)));
-                spawnBlock1(Objects.requireNonNull(player.getTargetEntity(100)));
-                spawnParticle(Objects.requireNonNull(player.getTargetEntity(100)));
-                player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_EMERGE, 1, 1);
-                LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
-                assert entity != null;
-                entity.addPotionEffect(PotionEffectType.WITHER.createEffect(200, 1));
+                Player entity = (Player) player.getTargetEntity(100);
+                rootPlayer(entity);
+                entity.playSound(entity.getLocation(), Sound.ENTITY_WARDEN_EMERGE,1,1);
+                spawnBlock1(entity);
+                spawnParticle(entity);
                 setCooldown(player);
             } else if(player.getTargetEntity(100) instanceof LivingEntity){
-                rootEntity((LivingEntity) Objects.requireNonNull(player.getTargetEntity(100)));
-                spawnBlock1(Objects.requireNonNull(player.getTargetEntity(100)));
-                spawnParticle(Objects.requireNonNull(player.getTargetEntity(100)));
-                player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_EMERGE, 1, 1);
                 LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
-                assert entity != null;
-                entity.addPotionEffect(PotionEffectType.WITHER.createEffect(200, 1));
+                rootEntity(entity);
+                player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_EMERGE,1,1);
+                spawnBlock1(entity);
+                spawnParticle(entity);
                 setCooldown(player);
             } else{
                 player.sendMessage(Colorize.format("&7There are no players in your direction or they are too far away!"));
@@ -72,6 +68,7 @@ public class RadagastStaffShift implements Listener {
     private void rootPlayer(Player entity){
         entity.addPotionEffect(PotionEffectType.SLOW.createEffect(200, 255));
         entity.addPotionEffect(PotionEffectType.JUMP.createEffect(200, 128));
+        entity.addPotionEffect(PotionEffectType.WITHER.createEffect(200, 2));
         entity.setCollidable(false);
         Bukkit.getScheduler().runTaskLater(main, () -> {
             entity.setCollidable(true);
@@ -79,6 +76,9 @@ public class RadagastStaffShift implements Listener {
     }
     private void rootEntity(LivingEntity entity){
         entity.setAI(false);
+        entity.addPotionEffect(PotionEffectType.SLOW.createEffect(200, 255));
+        entity.addPotionEffect(PotionEffectType.JUMP.createEffect(200, 128));
+        entity.addPotionEffect(PotionEffectType.WITHER.createEffect(200, 2));
         Bukkit.getScheduler().runTaskLater(main, () -> {
             entity.setAI(true);
         }, 20 * 10);
