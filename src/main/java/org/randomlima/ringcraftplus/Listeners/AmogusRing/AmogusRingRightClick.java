@@ -39,12 +39,12 @@ public class AmogusRingRightClick implements Listener {
                 return;
             }
             event.setCancelled(true);
-            //setCooldown(player);
-            LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
-            Location eLoc = entity.getLocation();
-            Location pLoc = player.getEyeLocation();
-            Particle particle = Particle.FLAME;
+
             if (player.getTargetEntity(100) != null && player.getTargetEntity(100) instanceof LivingEntity){
+                LivingEntity entity = (LivingEntity) player.getTargetEntity(100);
+                Location eLoc = entity.getLocation();
+                Location pLoc = player.getEyeLocation();
+                Particle particle = Particle.FLAME;
                 particleLine(pLoc, eLoc, particle);
                 Vector velocity = entity.getVelocity();
                 velocity.setY(1.5);
@@ -70,6 +70,8 @@ public class AmogusRingRightClick implements Listener {
                     entity.setVelocity(velocity.setY(-1));
                     player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_SONIC_BOOM, 1, 1);
                 }, 20 * 4);
+            } else{
+                player.sendMessage(Colorize.format("&7There are no enemies in your direction or they are too far away!"));
             }
 
         }

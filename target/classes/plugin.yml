@@ -55,3 +55,11 @@ commands:
     description: A command that gives the player the balrog whip.
     usage: /<command>
     permission: rcp.items
+  rcpmorgulblade:
+    description: A command that gives the player the morgul blade.
+    usage: /<command>
+    permission: rcp.items
+  rcpamogusjet:
+    description: A command that gives the player the amogus bomb.
+    usage: /<command>
+    permission: rcp.items

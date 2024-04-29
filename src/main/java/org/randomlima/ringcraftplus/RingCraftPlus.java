@@ -9,9 +9,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Commands.*;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
+import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusJetGunsRightClick;
+import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusJetRightClick;
+import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusRocketJet;
 import org.randomlima.ringcraftplus.Listeners.AmogusRing.AmogusRingRightClick;
 import org.randomlima.ringcraftplus.Listeners.AngmarHelmet.AngmarHelmetArmor;
 import org.randomlima.ringcraftplus.Listeners.BalrogWhip.BalrogWhipRightClick;
+import org.randomlima.ringcraftplus.Listeners.BlockPlace.AngmarAndWizardHat;
 import org.randomlima.ringcraftplus.Listeners.GaladrielPhial.GaladrielPhialRightClick;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffDamage;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffLeftClick;
@@ -19,6 +23,7 @@ import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffRightClic
 //import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
 import org.randomlima.ringcraftplus.Listeners.GandalfStaff.GandalfStaffShift;
 import org.randomlima.ringcraftplus.Listeners.GondorHorn.GondorHornRightClick;
+import org.randomlima.ringcraftplus.Listeners.MorgulBlade.MorgulBladeRightClick;
 import org.randomlima.ringcraftplus.Listeners.Palantir.PalantirRightClick;
 import org.randomlima.ringcraftplus.Listeners.RadagastStaff.RadagastStaffLeftClick;
 import org.randomlima.ringcraftplus.Listeners.RadagastStaff.RadagastStaffRightClick;
@@ -50,6 +55,8 @@ public final class RingCraftPlus extends JavaPlugin {
         this.getCommand("rcpurukhaishield").setExecutor(new UrukHaiShield());
         this.getCommand("rcpurukhaisword").setExecutor(new UrukHaiSword());
         this.getCommand("rcpbalrogwhip").setExecutor(new BalrogWhip());
+        this.getCommand("rcpmorgulblade").setExecutor(new MorgulBlade());
+        this.getCommand("rcpamogusjet").setExecutor(new AmogusBomb());
 
         getServer().getPluginManager().registerEvents(new GondorHornRightClick(this), this);
 
@@ -78,11 +85,21 @@ public final class RingCraftPlus extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BalrogWhipRightClick(this), this);
 
+        getServer().getPluginManager().registerEvents(new AngmarAndWizardHat(), this);
+
+        getServer().getPluginManager().registerEvents(new MorgulBladeRightClick(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusJetRightClick(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusJetGunsRightClick(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusRocketJet(this),this);
+
         getServer().getScheduler().runTaskTimer(this, () -> {
             // Iterate through online players and check if they are in water
             for (Player player : getServer().getOnlinePlayers()) {
                 Material blockType = player.getLocation().getBlock().getType();
-                if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.AngmarHelmet)){
+                if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getItemMeta().getLore() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.AngmarHelmet)){
                     if (blockType == Material.WATER) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20, 5));
                     }

@@ -23,7 +23,7 @@ public class AngmarHelmetArmor implements Listener {
     @EventHandler
     public void onHelmetEquip(PlayerArmorChangeEvent event) {
         Player player = (Player) event.getPlayer();
-        if (player.getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet().getLore() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.AngmarHelmet)) {
+        if (player.getInventory().getHelmet() != null && event.getPlayer().getInventory().getHelmet().getItemMeta().getLore() != null && player.getInventory().getHelmet().getLore().equals(CustomItems.AngmarHelmet)) {
             PotionEffect regen = new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0);
             PotionEffect nv = new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0);
             player.addPotionEffect(regen);

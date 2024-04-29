@@ -1,9 +1,6 @@
 package org.randomlima.ringcraftplus.Listeners.BalrogWhip;
 
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -21,14 +18,14 @@ import org.randomlima.ringcraftplus.RingCraftPlus;
 import java.util.Random;
 
 public class BalrogWhipRightClick implements Listener {
-    private int cooldown = 60;
+    private int cooldown = 1;
     private CooldownManager cooldownManager;
     private final RingCraftPlus main;
     private final Random random = new Random();
     public BalrogWhipRightClick(RingCraftPlus main) {
         this.main = main;
         this.cooldownManager = new CooldownManager(main, cooldown);
-        cooldownManager.setCooldownMessage("&7Forest Renewal is on cooldown! Use again in: %seconds% seconds.");
+        cooldownManager.setCooldownMessage("&7Infernal Sweep is on cooldown! Use again in: %seconds% seconds.");
     }
     @EventHandler
     public void onRightClick(PlayerInteractEvent event){
@@ -40,18 +37,18 @@ public class BalrogWhipRightClick implements Listener {
                 return;
             }
             event.setCancelled(true);
-            if(player.getTargetEntity(10) != null && player.getTargetEntity(10) instanceof LivingEntity){
-                LivingEntity entity = (LivingEntity) player.getTargetEntity(10);
-                Location eLoc = entity.getLocation();
-                Location pLoc = player.getEyeLocation();
-                double height = random.nextDouble() * (3 - 1) + 1;
-                spawnCurvedLineParticles(pLoc, eLoc, 50, height);
-            }else {
-                player.sendMessage(Colorize.format("&7There are no enemies in your direction or they are too far away!"));
-            }
+            cooldownManager.setCooldown(player);
+            Location start = player.getLocation();
+
+            Vector direction = player.getLocation().getDirection();
+            direction.multiply(8);
+            Location end = player.getLocation().add(direction);
+
+            double height = random.nextDouble() * (3 - 1) + 1;
+            spawnCurvedLineParticles(start, end, 50, height, player);
         }
     }
-    private void spawnCurvedLineParticles(Location start, Location end, int count, double curveHeight) {
+    private void spawnCurvedLineParticles(Location start, Location end, int count, double curveHeight, Player player) {
         World world = start.getWorld();
         double spacing = 1.0 / count;
 
@@ -61,7 +58,15 @@ public class BalrogWhipRightClick implements Listener {
             double z = (1 - t) * start.getZ() + t * end.getZ();
 
             Location particleLoc = new Location(world, x, y, z);
+            //world.spawnParticle(Particle.FLAME, particleLoc, 0);
             world.spawnParticle(Particle.FLAME, particleLoc, 0);
+            for (LivingEntity entity : particleLoc.getNearbyLivingEntities(1,1,1)){
+                if(entity != player){
+                    entity.damage(4);
+                    entity.setFireTicks(40);
+                    entity.setKiller(player);
+                }
+            }
         }
     }
 }

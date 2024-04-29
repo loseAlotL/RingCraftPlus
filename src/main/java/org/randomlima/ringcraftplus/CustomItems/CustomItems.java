@@ -29,6 +29,12 @@ public class CustomItems {
     public static ItemStack UrukHaiShield;
     public static ItemStack UrukHaiSword;
     public static ItemStack BalrogWhip;
+    public static ItemStack MorgulBlade;
+    public static ItemStack AmogusJetBomb;
+    public static ItemStack AmogusJetGuns;
+    public static ItemStack AmogusJetWings;
+    public static ItemStack AmogusJet;
+    public static ItemStack AmogusRocketJet;
 
     public static void init(){
         createAngmarHelmet();
@@ -44,6 +50,12 @@ public class CustomItems {
         createUrukHaiHelmet();
         createUrukHaiShield();
         createUrukHaiSword();
+        createMorgulBlade();
+        createAmogusJetBomb();
+        createAmogusJetGuns();
+        createAmogusJetWings();
+        createAmogusJet();
+        createAmogusRocketJets();
     }
 
     private static void createAngmarHelmet() {
@@ -128,8 +140,6 @@ public class CustomItems {
     private static void createPalantir() {
         ItemStack item = new ItemStack(Material.ENDER_EYE,1);
         ItemMeta meta = item.getItemMeta();
-        meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH, new AttributeModifier("GENERIC_MAX_HEALTH", 10, AttributeModifier.Operation.ADD_NUMBER));
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.setDisplayName(Colorize.format("&5[Palantir]"));
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Ethereal Gaze &e&lRIGHT CLICK"));
@@ -264,10 +274,89 @@ public class CustomItems {
         meta.setDisplayName(Colorize.format("&4[Balrog's Whip]"));
         List<String> lore = new ArrayList<>();
         lore.add(Colorize.format("&6Ability: Infernal Sweep &e&lRIGHT CLICK"));
-        lore.add(Colorize.format("&7BALROG WHIP"));
-        lore.add(Colorize.format("&8Cooldown: 60s"));
+        lore.add(Colorize.format("&7Cast a firey whip to entangle your enemies."));
+        lore.add(Colorize.format("&8Cooldown: 2s"));
         meta.setLore(lore);
         item.setItemMeta(meta);
         BalrogWhip = item;
+    }
+
+    private static void createMorgulBlade() {
+        ItemStack item = new ItemStack(Material.STONE_SWORD,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&2[Morgul Blade]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: Venom's Cast &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7Give your enemy &dwithering 1 &7for 30 seconds."));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        MorgulBlade = item;
+    }
+
+    private static void createAmogusJetBomb() {
+        ItemStack item = new ItemStack(Material.TNT,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS BOMB]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: BOMBS AWAY &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7Drop a bunch of bombs where you are. (Try not to explode yourself)"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusJetBomb = item;
+    }
+    private static void createAmogusJetGuns() {
+        ItemStack item = new ItemStack(Material.SPECTRAL_ARROW,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS GUNS]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: GUNS &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7PEW PEW PEW PEW"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusJetGuns = item;
+    }
+    private static void createAmogusJetWings() {
+        ItemStack item = new ItemStack(Material.ELYTRA,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS WINGS]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusJetWings = item;
+    }
+
+    private static void createAmogusJet() {
+        ItemStack item = new ItemStack(Material.CARVED_PUMPKIN,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(6);
+        meta.setDisplayName(Colorize.format("&4[AMOGUS JET]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusJet = item;
+    }
+    private static void createAmogusRocketJets() {
+        ItemStack item = new ItemStack(Material.STICK,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS ROCKET JET]"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        List<String> lore = new ArrayList<>();
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusRocketJet = item;
     }
 }

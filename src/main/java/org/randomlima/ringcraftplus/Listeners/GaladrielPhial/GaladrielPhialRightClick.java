@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,7 +55,7 @@ public class GaladrielPhialRightClick implements Listener {
                     Player nearbyPlayer = (Player) entity;
                     nearbyPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
                 }
-                if (entity instanceof LivingEntity && !(entity instanceof Player)){
+                if (entity instanceof LivingEntity && !(entity instanceof Player) && isHostile(entity)){
                     LivingEntity lentity = (LivingEntity) entity;
                     damageTask(lentity, player);
                 }
@@ -86,5 +87,43 @@ public class GaladrielPhialRightClick implements Listener {
                 ticks[0]++;
             }
         }, 0L, 20L); //0 Tick initial delay, 20 Tick (1 Second) between repeats
+    }
+
+    public boolean isHostile(Entity entity) {
+        EntityType type = entity.getType();
+        return type == EntityType.ZOMBIE ||
+                type == EntityType.SKELETON ||
+                type == EntityType.SPIDER ||
+                type == EntityType.CREEPER ||
+                type == EntityType.WITHER ||
+                type == EntityType.WITHER_SKELETON ||
+                type == EntityType.ENDER_DRAGON ||
+                type == EntityType.ENDERMAN ||
+                type == EntityType.ENDERMITE ||
+                type == EntityType.PHANTOM ||
+                type == EntityType.RAVAGER ||
+                type == EntityType.SHULKER ||
+                type == EntityType.SHULKER_BULLET ||
+                type == EntityType.SILVERFISH ||
+                type == EntityType.SKELETON_HORSE ||
+                type == EntityType.SLIME ||
+                type == EntityType.STRAY ||
+                type == EntityType.VEX ||
+                type == EntityType.CAVE_SPIDER ||
+                type == EntityType.VINDICATOR ||
+                type == EntityType.MAGMA_CUBE ||
+                type == EntityType.GUARDIAN ||
+                type == EntityType.ELDER_GUARDIAN ||
+                type == EntityType.GHAST ||
+                type == EntityType.EVOKER ||
+                type == EntityType.ZOGLIN ||
+                type == EntityType.ZOMBIE_VILLAGER ||
+                type == EntityType.BLAZE ||
+                type == EntityType.PIGLIN ||
+                type == EntityType.PIGLIN_BRUTE ||
+                type == EntityType.ZOMBIFIED_PIGLIN ||
+                type == EntityType.HOGLIN ||
+                type == EntityType.PILLAGER ||
+                type == EntityType.WARDEN;
     }
 }
