@@ -35,6 +35,12 @@ public class CustomItems {
     public static ItemStack AmogusJetWings;
     public static ItemStack AmogusJet;
     public static ItemStack AmogusRocketJet;
+    public static ItemStack AmogusDroneMines;
+    public static ItemStack AmogusMissles;
+    public static ItemStack AmogusBarrelRoll;
+    public static ItemStack AmogusBarrelRollLeft;
+
+    public static ItemStack AmogusNuke;
 
     public static void init(){
         createAngmarHelmet();
@@ -56,6 +62,11 @@ public class CustomItems {
         createAmogusJetWings();
         createAmogusJet();
         createAmogusRocketJets();
+        createAmogusDroneMines();
+        createAmogusMissles();
+        createAmogusBarrelRoll();
+        createAmogusBarrelRollLeft();
+        createAmogusNuke();
     }
 
     private static void createAngmarHelmet() {
@@ -358,5 +369,78 @@ public class CustomItems {
         meta.setLore(lore);
         item.setItemMeta(meta);
         AmogusRocketJet = item;
+    }
+
+    private static void createAmogusDroneMines() {
+        ItemStack item = new ItemStack(Material.TNT_MINECART,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS DRONE MINES]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: FLOATING BOMBS &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7KAABOOMMM"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusDroneMines = item;
+    }
+
+    private static void createAmogusMissles() {
+        ItemStack item = new ItemStack(Material.ARROW,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS MISSILES]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: MISSILES!!! &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7KAABOOMMM"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusMissles = item;
+    }
+
+    private static void createAmogusBarrelRoll() {
+        ItemStack item = new ItemStack(Material.BARREL,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS BARREL ROLL RIGHT]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: ROLL RIGHT!!! &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7WHEEEEEEEEEE RIGHT"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusBarrelRoll = item;
+    }
+    private static void createAmogusBarrelRollLeft() {
+        ItemStack item = new ItemStack(Material.BARREL,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS BARREL ROLL LEFT]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: ROLL LEFT!!! &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7WHEEEEEEEEEE LEFT"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusBarrelRollLeft = item;
+    }
+    private static void createAmogusNuke() {
+        ItemStack item = new ItemStack(Material.COMMAND_BLOCK,1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Colorize.format("&4[AMOGUS BARREL NUKE]"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Colorize.format("&6Ability: NUKEEE!!! &e&lRIGHT CLICK"));
+        lore.add(Colorize.format("&7OMEGA NUKE"));
+        lore.add(Colorize.format("&8Cooldown: 60s"));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        AmogusNuke = item;
     }
 }

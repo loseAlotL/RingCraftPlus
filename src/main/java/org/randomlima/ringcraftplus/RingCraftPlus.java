@@ -1,6 +1,7 @@
 package org.randomlima.ringcraftplus;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -9,9 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.randomlima.ringcraftplus.Commands.*;
 import org.randomlima.ringcraftplus.CustomItems.CustomItems;
-import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusJetGunsRightClick;
-import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusJetRightClick;
-import org.randomlima.ringcraftplus.Listeners.AmogusJet.AmogusRocketJet;
+import org.randomlima.ringcraftplus.Listeners.AmogusJet.*;
 import org.randomlima.ringcraftplus.Listeners.AmogusRing.AmogusRingRightClick;
 import org.randomlima.ringcraftplus.Listeners.AngmarHelmet.AngmarHelmetArmor;
 import org.randomlima.ringcraftplus.Listeners.BalrogWhip.BalrogWhipRightClick;
@@ -37,10 +36,12 @@ import java.util.List;
 
 public final class RingCraftPlus extends JavaPlugin {
 
+
     @Override
     public void onEnable() {
+
         // Plugin startup logic
-        System.err.println("Server has started.");
+        getServer().getConsoleSender().sendMessage("RingCraftPlus Status: ACTIVE");
         CustomItems.init();
         this.getCommand("rcpangmarhelmet").setExecutor(new AngmarHelmet());
         this.getCommand("rcppalantir").setExecutor(new Palantir());
@@ -95,6 +96,16 @@ public final class RingCraftPlus extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new AmogusRocketJet(this),this);
 
+        getServer().getPluginManager().registerEvents(new AmogusDroneMines(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusMissles(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusBarrelRoll(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusBarrelRoll1(this), this);
+
+        getServer().getPluginManager().registerEvents(new AmogusNuke(this), this);
+
         getServer().getScheduler().runTaskTimer(this, () -> {
             // Iterate through online players and check if they are in water
             for (Player player : getServer().getOnlinePlayers()) {
@@ -123,7 +134,7 @@ public final class RingCraftPlus extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        System.err.println("Server has stopped.");
+        getServer().getConsoleSender().sendMessage("RingCraftPlus Status: INACTIVE");
         // Plugin shutdown logic
     }
 }
